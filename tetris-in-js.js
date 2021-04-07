@@ -34,6 +34,7 @@ var zShapeReversed = [[-1,0],[0,0],[0,1],[1,1]];
 *************************/
 
 var LAYOUTS = [square, bar, sevenShape, sevenShapeReversed, hump, zShape, zShapeReversed];
+var templayout = [];
 var COLORS = ['red', 'blue', 'pink', 'purple', 'silver', 'orange', 'grey'];
 
 // 定义储存游戏板的二维数组，以存储方块的状态
@@ -81,10 +82,11 @@ function initializePiece(pieceTypeIdx) {
     /************************
         YOUR CODE STARTS
     *************************/
-    var newPiece = document.createElement('div');
 
+    var newPiece = document.createElement('div');
+    templayout=LAYOUTS;
     newPiece.className = 'piece';
-    newPiece.layout = LAYOUTS[pieceTypeIdx]
+    newPiece.layout = templayout[pieceTypeIdx];
 
     for (var i = 0; i < 4; i++) {
         var newBlock = document.createElement('div')
@@ -204,6 +206,7 @@ function pieceMoveDown() {
     else{
         updateOccupationMatrix(piece);
         piece.id="";
+        templayout=[];
         check();
         generatePiece();
     }
@@ -519,7 +522,6 @@ function play() {
     window.a = setInterval(function () {
         pieceMoveDown();
         show();
-        console.log(LAYOUTS);
     }, 500)
 
 }
