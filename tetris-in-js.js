@@ -63,8 +63,10 @@ function generatePiece() {
     hump = [[0,0],[1,0],[-1,0],[0,1]];
     zShape = [[-1,1],[0,1],[0,0],[1,0]];
     zShapeReversed = [[-1,0],[0,0],[0,1],[1,1]];
+    LAYOUTS = [square, bar, sevenShape, sevenShapeReversed, hump, zShape, zShapeReversed];
+    console.log(bar);
     newPiece = initializePiece(pieceIdx);
-
+    console.log(newPiece.layout);
     // 将这个 piece 挂到 gameBoard 内容板里
     newPiece.id = "currentPiece";
     gameBoard.appendChild(newPiece);
@@ -90,7 +92,7 @@ function initializePiece(pieceTypeIdx) {
     *************************/
     var newPiece = document.createElement('div');
     newPiece.className = 'piece';
-    newPiece.layout = templayout[pieceTypeIdx];
+    newPiece.layout = LAYOUTS[pieceTypeIdx];
 
     for (var i = 0; i < 4; i++) {
         var newBlock = document.createElement('div')
