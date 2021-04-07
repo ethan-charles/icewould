@@ -34,7 +34,6 @@ var zShapeReversed = [[-1,0],[0,0],[0,1],[1,1]];
 *************************/
 
 var LAYOUTS = [square, bar, sevenShape, sevenShapeReversed, hump, zShape, zShapeReversed];
-var templayout = [];
 var COLORS = ['red', 'blue', 'pink', 'purple', 'silver', 'orange', 'grey'];
 
 // 定义储存游戏板的二维数组，以存储方块的状态
@@ -57,7 +56,14 @@ function generatePiece() {
 
     // 生成一个方块的 DOM （其实是 HTML 中的一个 <div> 标签）
     // getPiece 这个函数是需要被完善的 (内部的 blockList 和其他 attributes 的实现)
-    var newPiece = initializePiece(pieceIdx);
+    bar = [[0, 0], [-1, 0], [1, 0], [2, 0]];
+    sevenShape = [[0, -1], [0, 0], [1, 0], [2, 0]];
+    square = [[0, 0], [1, 0], [0, 1], [1, 1]];
+    sevenShapeReversed = [[1,-1],[1,0],[0,0],[-1,0]];
+    hump = [[0,0],[1,0],[-1,0],[0,1]];
+    zShape = [[-1,1],[0,1],[0,0],[1,0]];
+    zShapeReversed = [[-1,0],[0,0],[0,1],[1,1]];
+    newPiece = initializePiece(pieceIdx);
 
     // 将这个 piece 挂到 gameBoard 内容板里
     newPiece.id = "currentPiece";
@@ -82,9 +88,7 @@ function initializePiece(pieceTypeIdx) {
     /************************
         YOUR CODE STARTS
     *************************/
-
     var newPiece = document.createElement('div');
-    templayout=LAYOUTS;
     newPiece.className = 'piece';
     newPiece.layout = templayout[pieceTypeIdx];
 
@@ -272,6 +276,7 @@ function rotateClock(piece) {
     /************************
         YOUR CODE STARTS
     *************************/
+   var newLayout = piece.layout.slice()
     var rectifyleft = 0;
     var rectifyright = 0;
     for (var i = 0;i < 4; i++){
