@@ -56,17 +56,8 @@ function generatePiece() {
 
     // 生成一个方块的 DOM （其实是 HTML 中的一个 <div> 标签）
     // getPiece 这个函数是需要被完善的 (内部的 blockList 和其他 attributes 的实现)
-    bar = [[0, 0], [-1, 0], [1, 0], [2, 0]];
-    sevenShape = [[0, -1], [0, 0], [1, 0], [2, 0]];
-    square = [[0, 0], [1, 0], [0, 1], [1, 1]];
-    sevenShapeReversed = [[1,-1],[1,0],[0,0],[-1,0]];
-    hump = [[0,0],[1,0],[-1,0],[0,1]];
-    zShape = [[-1,1],[0,1],[0,0],[1,0]];
-    zShapeReversed = [[-1,0],[0,0],[0,1],[1,1]];
-    LAYOUTS = [square, bar, sevenShape, sevenShapeReversed, hump, zShape, zShapeReversed];
-    console.log(bar);
-    newPiece = initializePiece(pieceIdx);
-    console.log(newPiece.layout);
+    var newPiece = initializePiece(pieceIdx);
+
     // 将这个 piece 挂到 gameBoard 内容板里
     newPiece.id = "currentPiece";
     gameBoard.appendChild(newPiece);
@@ -91,8 +82,9 @@ function initializePiece(pieceTypeIdx) {
         YOUR CODE STARTS
     *************************/
     var newPiece = document.createElement('div');
+
     newPiece.className = 'piece';
-    newPiece.layout = LAYOUTS[pieceTypeIdx];
+    newPiece.layout = LAYOUTS[pieceTypeIdx]
 
     for (var i = 0; i < 4; i++) {
         var newBlock = document.createElement('div')
@@ -212,7 +204,6 @@ function pieceMoveDown() {
     else{
         updateOccupationMatrix(piece);
         piece.id="";
-        templayout=[];
         check();
         generatePiece();
     }
@@ -278,12 +269,13 @@ function rotateClock(piece) {
     /************************
         YOUR CODE STARTS
     *************************/
-   var newLayout = piece.layout.slice()
+    var templayout = new Array(4);
     var rectifyleft = 0;
     var rectifyright = 0;
     for (var i = 0;i < 4; i++){
-        piece.layout[i]=[piece.layout[i][1],-piece.layout[i][0]];
-    }
+        templayout[i]=[piece.layout[i][1],-piece.layout[i][0]];
+
+    }piece.layout=templayout;
     for (var i = 0;i < 4; i++){
         if(rectifyleft + piece.layout[i][1] + piece.colPos <= 0){
             rectifyleft = -piece.layout[i][1] - piece.colPos;
@@ -295,8 +287,9 @@ function rotateClock(piece) {
     for (var i = 0; i < 4; i++){
         if (occupationMatrix [piece.layout[i][0] + piece.rowPos][piece.colPos + piece.layout[i][1] + rectifyleft + rectifyright] != null){
             for (var i = 0;i < 4; i++){
-                piece.layout[i]=[-piece.layout[i][1],piece.layout[i][0]];
-            }
+                templayout[i]=[-piece.layout[i][1],piece.layout[i][0]];
+
+            }piece.layout=templayout;
             return;
         }
     }
@@ -318,11 +311,13 @@ function rotateAntiClock(piece) {
     /************************
         YOUR CODE STARTS
     *************************/
+    var templayout = new Array(4);
     var rectifyleft = 0;
     var rectifyright = 0;
     for (var i = 0;i < 4; i++){
-        piece.layout[i]=[-piece.layout[i][1],piece.layout[i][0]];
-    }
+        templayout[i]=[-piece.layout[i][1],piece.layout[i][0]];
+
+    }piece.layout=templayout;
     for (var i = 0;i < 4; i++){
         if(rectifyleft + piece.layout[i][1] + piece.colPos <= 0){
             rectifyleft = -piece.layout[i][1] - piece.colPos;
@@ -334,8 +329,9 @@ function rotateAntiClock(piece) {
     for (var i = 0; i < 4; i++){
         if (occupationMatrix [piece.layout[i][0] + piece.rowPos + rectifyleft + rectifyright][piece.colPos + piece.layout[i][1] + rectifyleft + rectifyright] != null){
             for (var i = 0;i < 4; i++){
-                piece.layout[i]=[piece.layout[i][1],-piece.layout[i][0]];
-            }
+                templayout[i]=[piece.layout[i][1],-piece.layout[i][0]];
+
+            }piece.layout=templayout;
             return;
         }
     }
